@@ -1,1 +1,2 @@
 # sochiHereCamp
+# код с геозонами
