@@ -1,5 +1,6 @@
 package here.com;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.here.android.mpa.mapping.SupportMapFragment;
 
 public class AuthFragment extends Fragment {
@@ -18,6 +20,7 @@ public class AuthFragment extends Fragment {
     private SupportMapFragment m_fragment;
     FrameLayout authLayout;
     Button btnStart;
+
 
 
     public AuthFragment() {
@@ -30,19 +33,23 @@ public class AuthFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
         final View authView = inflater.inflate(R.layout.fragment_auth, container, false);
+
+
 
         authLayout = authView.findViewById(R.id.frameLayout);
         btnStart = authView.findViewById(R.id.btn_start);
 
         btnStart.setOnClickListener(new View.OnClickListener(){
 
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
                 authLayout.setVisibility(View.INVISIBLE);
                 m_fragment = MapFragmentView.m_mapFragment;
                 m_fragment.getMapGesture().setAllGesturesEnabled(true);
+                FloatingActionButton camera = getActivity().findViewById(R.id.fab);
+                camera.setVisibility(View.VISIBLE);
             }
         });
 
