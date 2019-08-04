@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat
                     .requestPermissions(this, RUNTIME_PERMISSIONS, REQUEST_CODE_ASK_PERMISSIONS);
         }
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, cameraActivity.class);
+            startActivity(intent);
+        });
     }
 
     private static boolean hasPermissions(Context context, String... permissions) {
