@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
 
 public class MapFragmentView extends AppCompatActivity {
 
-    private SupportMapFragment m_mapFragment;
+    public static SupportMapFragment m_mapFragment;
     private Map m_map;
 
     AppCompatActivity m_activity;
