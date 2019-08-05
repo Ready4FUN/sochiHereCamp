@@ -2,8 +2,10 @@ package here.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.GeoPosition;
 import com.here.android.mpa.common.OnEngineInitListener;
@@ -16,13 +18,16 @@ import java.lang.ref.WeakReference;
 
 public class MapFragmentView extends AppCompatActivity {
 
-    public static SupportMapFragment m_mapFragment;
+    public AppCompatActivity m_activity;
+
+    public SupportMapFragment m_mapFragment;
     private Map m_map;
 
-    AppCompatActivity m_activity;
+    private FloatingActionButton geolocationBtn;
+    private FloatingActionButton zoomInBtn;
+    private FloatingActionButton zoomOutBtn;
 
     private PositioningManager posManager = null;
-
     private Boolean paused = false;
     private Boolean initialized = false;
 
@@ -42,7 +47,6 @@ public class MapFragmentView extends AppCompatActivity {
 
                 m_map.setCenter(posManager.getPosition().getCoordinate(),
                         Map.Animation.BOW);
-                m_map.setZoomLevel(17);
             }
         }
 
@@ -117,9 +121,10 @@ public class MapFragmentView extends AppCompatActivity {
                     posManager.addListener(new WeakReference<>(positionListener));
                     posManager.start(
                             PositioningManager.LocationMethod.GPS_NETWORK);
+
                     m_map.getPositionIndicator().setVisible(true);
 
-                    m_mapFragment.getMapGesture().setAllGesturesEnabled(false);
+                    initControlBtns();
 
                 } else {
                     System.out.println("ERROR: Cannot initialize Map Fragment");
@@ -128,4 +133,41 @@ public class MapFragmentView extends AppCompatActivity {
         });
 
     }
+
+    private void initControlBtns() {
+        geolocationBtn = m_activity.findViewById(R.id.geolocationBtn);
+        zoomInBtn = m_activity.findViewById(R.id.zoomInBtn);
+        zoomOutBtn = m_activity.findViewById(R.id.zoomOutBtn);
+
+        geolocationBtn.setOnClickListener(v -> {
+            try{
+
+                if(posManager.hasValidPosition()){
+                    m_map.setCenter(posManager.getPosition().getCoordinate(),
+                            Map.Animation.LINEAR);
+                    m_map.setZoomLevel(17, Map.Animation.BOW);
+                    m_map.setTilt(0, Map.Animation.BOW);
+                    m_map.setOrientation(0, Map.Animation.BOW);
+                };
+            }catch(NullPointerException error) {
+                Toast.makeText(getApplicationContext(), "Идет поиск местоположения", Toast.LENGTH_SHORT).show();
+                System.out.print("Search in process");
+            }
+        });
+
+        zoomInBtn.setOnClickListener(v ->{
+            double zoomLevel = m_map.getZoomLevel();
+            m_map.setCenter(posManager.getPosition().getCoordinate(),
+                    Map.Animation.BOW);
+            m_map.setZoomLevel( zoomLevel + 1, Map.Animation.LINEAR);
+        });
+
+        zoomOutBtn.setOnClickListener(v -> {
+            double zoomLevel = m_map.getZoomLevel();
+            m_map.setCenter(posManager.getPosition().getCoordinate(),
+                    Map.Animation.BOW);
+            m_map.setZoomLevel( zoomLevel - 1, Map.Animation.LINEAR);
+        });
+    }
+
 }
