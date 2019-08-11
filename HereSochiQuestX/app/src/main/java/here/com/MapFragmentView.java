@@ -1,9 +1,8 @@
 package here.com;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.here.android.mpa.common.GeoCoordinate;
@@ -15,6 +14,7 @@ import com.here.android.mpa.mapping.SupportMapFragment;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class MapFragmentView extends AppCompatActivity {
 
@@ -105,30 +105,32 @@ public class MapFragmentView extends AppCompatActivity {
 
         if(!success) {
             Toast.makeText(m_activity.getApplicationContext(), "Unable to set isolated disk cache path.", Toast.LENGTH_LONG);
-        } else m_mapFragment.init(new OnEngineInitListener() {
-            @Override
-            public void onEngineInitializationCompleted(Error error) {
-                if (error == Error.NONE) {
-                    // retrieve a reference of the map from the map fragment
-                    m_map = m_mapFragment.getMap();
-                    // Set the map center to the Vancouver region (no animation)
-                    m_map.setCenter(new GeoCoordinate(55.750907459297785, 37.61693000793457, 0.0),
-                            Map.Animation.NONE);
-                    // Set the zoom level to the average between min and max
-                    m_map.setZoomLevel((m_map.getMaxZoomLevel() + m_map.getMinZoomLevel()) / 2);
+        } else m_mapFragment.init(error -> {
+            if (error == OnEngineInitListener.Error.NONE) {
+                // retrieve a reference of the map from the map fragment
+                m_map = m_mapFragment.getMap();
+                // Set the map center to the Vancouver region (no animation)
+                m_map.setCenter(new GeoCoordinate(55.750907459297785, 37.61693000793457, 0.0),
+                        Map.Animation.NONE);
+                // Set the zoom level to the average between min and max
+                m_map.setZoomLevel((m_map.getMaxZoomLevel() + m_map.getMinZoomLevel()) / 2);
 
-                    posManager = PositioningManager.getInstance();
-                    posManager.addListener(new WeakReference<>(positionListener));
-                    posManager.start(
-                            PositioningManager.LocationMethod.GPS_NETWORK);
+                posManager = PositioningManager.getInstance();
+                posManager.addListener(new WeakReference<>(positionListener));
+                posManager.start(
+                        PositioningManager.LocationMethod.GPS_NETWORK);
 
-                    m_map.getPositionIndicator().setVisible(true);
+                m_map.getPositionIndicator().setVisible(true);
 
-                    initControlBtns();
+                List<String> schemes = m_map.getMapSchemes();
 
-                } else {
-                    System.out.println("ERROR: Cannot initialize Map Fragment");
-                }
+
+                m_map.setMapScheme(schemes.get(0));
+
+                initControlBtns();
+
+            } else {
+                System.out.println("ERROR: Cannot initialize Map Fragment");
             }
         });
 
