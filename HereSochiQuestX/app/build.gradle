@@ -30,6 +30,7 @@ repositories {
 }
 
 dependencies {
+    api 'com.google.android.material:material:1.1.0-alpha06'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation(name: 'HERE-sdk', ext: 'aar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -41,3 +42,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     implementation 'com.google.android.material:material:1.0.0'
 }
+
+

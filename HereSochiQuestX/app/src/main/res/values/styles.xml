@@ -1,15 +1,44 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorOnPrimary">@color/colorWhite</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondaryVariant">@color/colorWhite</item>
+        <item name="colorOnSecondary">@color/colorWhite</item>
+
+        <!--Color of the background-->
+        <item name="colorOnBackground">@color/colorPrimaryDark</item>
+        <item name="colorSurface">@color/colorWhite</item>
+        <item name="colorOnSurface">@color/colorWhite</item>
+        <item name="colorError">@color/colorAccent</item>
+        <item name="colorOnError">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorSplash</item>
+
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="colorOnPrimary">@color/colorWhite</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondaryVariant">@color/colorWhite</item>
+        <item name="colorOnSecondary">@color/colorAccent</item>
+
+        <!--Color of the background-->
+        <item name="colorOnBackground">@color/colorPrimaryDark</item>
+        <item name="colorSurface">@color/colorWhite</item>
+        <item name="colorOnSurface">@color/colorWhite</item>
+        <item name="colorError">@color/colorAccent</item>
+        <item name="colorOnError">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorWhite</item>
     </style>
 
 </resources>

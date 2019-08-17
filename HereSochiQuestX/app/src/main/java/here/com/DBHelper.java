@@ -53,14 +53,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("create table " + TABLE_ZONES +
                 "(" + KEY_ID + " integer primary key autoincrement,"
-                + ZONE_NUMBER + " integer, "
+                + ZONE_NUMBER + " integer,"
                 + ZONE_NAME + " varchar(200),"
                 + LANGUAGE + " varchar(200),"
                 + IMG_CODE + " varchar(200),"
                 + GEOM + " varchar(200)" + ")"
         );
 
-        ContentValues values = new ContentValues();
+        ContentValues values_teams = new ContentValues();
+        ContentValues values_zones = new ContentValues();
         Resources res = fContext.getResources();
 
         XmlResourceParser teams_xml = res.getXml(R.xml.teams_records);
@@ -80,12 +81,12 @@ public class DBHelper extends SQLiteOpenHelper {
                     String route = teams_xml.getAttributeValue(null,ROUTE);
                     String last_task = teams_xml.getAttributeValue(null,LAST_TASK);
 
-                    values.put(DBHelper.TEAM_CODE, team_code);
-                    values.put(DBHelper.ACTIVE, active);
-                    values.put(DBHelper.ROUTE, route);
-                    values.put(DBHelper.LAST_TASK, last_task);
+                    values_teams.put(DBHelper.TEAM_CODE, team_code);
+                    values_teams.put(DBHelper.ACTIVE, active);
+                    values_teams.put(DBHelper.ROUTE, route);
+                    values_teams.put(DBHelper.LAST_TASK, last_task);
 
-                    db.insert(TABLE_TEAMS, null, values);
+                    db.insert(TABLE_TEAMS, null, values_teams);
                 }
                 eventType = teams_xml.next();
             }
@@ -117,13 +118,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     String img_code = zones_xml.getAttributeValue(null,IMG_CODE);
                     String geom = zones_xml.getAttributeValue(null,GEOM);
 
-                    values.put(DBHelper.ZONE_NUMBER, zone_number);
-                    values.put(DBHelper.ZONE_NAME, zone_name);
-                    values.put(DBHelper.LANGUAGE, language);
-                    values.put(DBHelper.IMG_CODE, img_code);
-                    values.put(DBHelper.GEOM, geom);
+                    values_zones.put(DBHelper.ZONE_NUMBER, zone_number);
+                    values_zones.put(DBHelper.ZONE_NAME, zone_name);
+                    values_zones.put(DBHelper.LANGUAGE, language);
+                    values_zones.put(DBHelper.IMG_CODE, img_code);
+                    values_zones.put(DBHelper.GEOM, geom);
 
-                    db.insert(TABLE_ZONES, null, values);
+                    db.insert(TABLE_ZONES, null, values_zones);
                 }
                 eventType = zones_xml.next();
             }
@@ -136,7 +137,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         } finally {
             // Close the xml file
-            teams_xml.close();
+            zones_xml.close();
         }
 
     }
