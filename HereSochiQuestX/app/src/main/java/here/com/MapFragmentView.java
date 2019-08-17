@@ -33,6 +33,7 @@ public class MapFragmentView extends AppCompatActivity {
     private FloatingActionButton zoomInBtn;
     private FloatingActionButton zoomOutBtn;
     private FloatingActionButton taskInfoBtn;
+    private FloatingActionButton clearDBBtn;
 
     private PositioningManager posManager = null;
     private Boolean paused = false;
@@ -172,6 +173,7 @@ public class MapFragmentView extends AppCompatActivity {
         zoomInBtn = m_activity.findViewById(R.id.zoomInBtn);
         zoomOutBtn = m_activity.findViewById(R.id.zoomOutBtn);
         taskInfoBtn = m_activity.findViewById(R.id.task_info);
+        clearDBBtn = m_activity.findViewById(R.id.clearDB);
 
 
         taskInfoBtn.setOnClickListener(v -> {
@@ -206,6 +208,10 @@ public class MapFragmentView extends AppCompatActivity {
             m_map.setCenter(posManager.getPosition().getCoordinate(),
                     Map.Animation.BOW);
             m_map.setZoomLevel( zoomLevel - 1, Map.Animation.LINEAR);
+        });
+
+        clearDBBtn.setOnClickListener(v->{
+
         });
 
     }
