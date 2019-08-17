@@ -98,10 +98,10 @@ public class TaskManager extends AppCompatActivity {
             cursorTask = getZoneByNumber(zone_number);
 
             if (cursorTask.moveToFirst()) {
-                String zone_name = cursor.getString(cursor.getColumnIndex(DBHelper.ZONE_NAME));
-                String language = cursor.getString(cursor.getColumnIndex(DBHelper.LANGUAGE));
-                String img_code = cursor.getString(cursor.getColumnIndex(DBHelper.IMG_CODE));
-                String geom = cursor.getString(cursor.getColumnIndex(DBHelper.GEOM));
+                String zone_name = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.ZONE_NAME));
+                String language = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.LANGUAGE));
+                String img_code = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.IMG_CODE));
+                String geom = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.GEOM));
 
 //                zone_name_text.setText(zone_name);
                 zone_language_text.setText(language);
