@@ -6,4 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".arActivity">
 
+    <fragment android:name="com.google.ar.sceneform.ux.ArFragment"
+        android:id="@+id/ux_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
