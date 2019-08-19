@@ -1,9 +1,13 @@
 package here.com;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +36,8 @@ public class MapFragmentView extends AppCompatActivity {
     private FloatingActionButton geolocationBtn;
     private FloatingActionButton zoomInBtn;
     private FloatingActionButton zoomOutBtn;
-    private FloatingActionButton taskInfoBtn;
-    private FloatingActionButton clearDBBtn;
+    private Button taskInfoBtn;
+    private Button clearDBBtn;
 
     private PositioningManager posManager = null;
     private Boolean paused = false;
@@ -63,12 +67,15 @@ public class MapFragmentView extends AppCompatActivity {
             }
 
             try{
+                taskManager.updateMap ();
                 GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
                 GeoCoordinate currentPosition = new GeoCoordinate(position.getCoordinate());
 
                 if(checkPolygon.contains(currentPosition)){
-                    taskManager.completeCurrentTask();
                     taskManager.openCurrentTaskDescription();
+                    if(!taskManager.questIsFinished()){
+                        taskManager.completeCurrentTask();
+                    }
                 }
 
             }catch(NullPointerException err){
@@ -211,7 +218,34 @@ public class MapFragmentView extends AppCompatActivity {
         });
 
         clearDBBtn.setOnClickListener(v->{
+            LayoutInflater inflater;
+            View view;
 
+            inflater = m_activity.getLayoutInflater();
+            view = inflater.inflate(R.layout.dialog_exit, null);
+
+            new MaterialAlertDialogBuilder(m_activity)
+                    .setCancelable(true)
+                    .setView(view)
+                    .setPositiveButton("Ok", (dialogInterface, i) -> {
+                        ContentValues cv_active = new ContentValues();
+                        ContentValues cv_last_task = new ContentValues();
+
+                        cv_active.put(DBHelper.ACTIVE, 0);
+                        db.update(DBHelper.TABLE_TEAMS, cv_active, null,null);
+
+                        cv_last_task.put(DBHelper.LAST_TASK, 0);
+                        db.update(DBHelper.TABLE_TEAMS, cv_last_task, null,null);
+
+                        Intent intent = new Intent(m_activity, AuthActivity.class);
+                        m_activity.startActivity(intent);
+                        m_activity.finish();
+
+                    }).setNegativeButton("Отмена", (dialogInterface, i) ->{
+                    })
+                    .show();
+
+            posManager.stop();
         });
 
     }
@@ -229,6 +263,7 @@ public class MapFragmentView extends AppCompatActivity {
                     .setCancelable(false)
                     .setView(v)
                     .setPositiveButton("Начать", (dialogInterface, i) -> {
+                        taskManager.openCurrentTaskDescription();
                     })
                     .show();
         }

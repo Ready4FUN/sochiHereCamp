@@ -8,20 +8,19 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="112dp"
-        android:layout_height="102dp"
+        android:layout_width="241dp"
+        android:layout_height="275dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="164dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:contentDescription="AuthLogo" />
+        app:srcCompat="@drawable/rick_morty_portal" />
 
     <EditText
         android:id="@+id/team_code"
@@ -47,7 +46,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorWhite"
-        android:text="Start"
+        android:text="Телепортация"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

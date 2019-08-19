@@ -5,41 +5,48 @@
         active="0"
         route="1,2,3,4,5,6"
         last_task="0"
+        person="0"
         />
     <record
         team_code="here_team_2"
         active="0"
         route="7,8,9,10,11,6"
         last_task="0"
+        person="0"
         />
     <record
         team_code="here_team_3"
         active="0"
         route="12,13,14,15,16"
         last_task="0"
+        person="0"
         />
     <record
         team_code="here_team_4"
         active="0"
         route="17,7,2,9,18"
         last_task="0"
+        person="0"
         />
     <record
         team_code="here_team_5"
         active="0"
         route="13,8,3,10,19"
         last_task="0"
+        person="0"
         />
     <record
         team_code="here_team_6"
         active="0"
         route="20,22,8,9,16"
         last_task="0"
+        person="0"
         />
     <record
         team_code="here_team_7"
         active="0"
         route="22,12,2,9,18"
         last_task="0"
+        person="0"
         />
 </points>

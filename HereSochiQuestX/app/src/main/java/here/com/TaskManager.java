@@ -48,7 +48,14 @@ public class TaskManager extends AppCompatActivity {
         if(cursor.moveToFirst()){
             int last_task = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.LAST_TASK)));
 
-            if(last_task != 5){
+            if(questIsFinished ()){
+                new MaterialAlertDialogBuilder(m_activity)
+                        .setCancelable(false)
+                        .setMessage("Квест выполнен!")
+                        .setPositiveButton("Ok", (dialogInterface, i) -> {
+                        })
+                        .show();
+            } else {
                 last_task += 1;
 
                 ContentValues cv = new ContentValues();
@@ -56,13 +63,6 @@ public class TaskManager extends AppCompatActivity {
                 String where = DBHelper.ACTIVE + " = ?";
                 String[] whereArgs = new String[] {"1"};
                 db.update(DBHelper.TABLE_TEAMS, cv, where,whereArgs);
-            } else {
-                new MaterialAlertDialogBuilder(m_activity)
-                        .setCancelable(false)
-                        .setMessage("Квест выполнен!")
-                        .setPositiveButton("Ok", (dialogInterface, i) -> {
-                        })
-                        .show();
             }
         }
     }
@@ -73,7 +73,6 @@ public class TaskManager extends AppCompatActivity {
 
         LayoutInflater inflater;
 
-        TextView zone_name_text;
         TextView zone_language_text;
         ImageView imgV;
 
@@ -84,7 +83,6 @@ public class TaskManager extends AppCompatActivity {
 
         imgV = v.findViewById(R.id.imageView2);
         zone_language_text = v.findViewById(R.id.language);
-//        zone_name_text = v.findViewById(R.id.zone_name);
 
         cursor = getActiveUser();
 
@@ -98,16 +96,13 @@ public class TaskManager extends AppCompatActivity {
             cursorTask = getZoneByNumber(zone_number);
 
             if (cursorTask.moveToFirst()) {
-                String zone_name = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.ZONE_NAME));
                 String language = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.LANGUAGE));
                 String img_code = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.IMG_CODE));
-                String geom = cursorTask.getString(cursorTask.getColumnIndex(DBHelper.GEOM));
 
-//                zone_name_text.setText(zone_name);
                 zone_language_text.setText(language);
                 imgV.setImageResource(m_activity.getResources().getIdentifier("drawable/" + img_code, null, m_activity.getPackageName()));
 
-                updateMap(geom);
+                updateMap();
 
                 new MaterialAlertDialogBuilder(m_activity)
                         .setCancelable(false)
@@ -119,15 +114,34 @@ public class TaskManager extends AppCompatActivity {
         }
     }
 
+    public Boolean questIsFinished (){
+        Cursor cursor;
+
+        cursor = getActiveUser();
+
+        if(cursor.moveToFirst()){
+            int last_task = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.LAST_TASK)));
+
+            if(last_task == 5){
+               return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
     // Clear map and add near polygon
-    private void updateMap (String geom) {
+    public void updateMap () {
         try{
             m_map.removeMapObject(m_polygon);
         }catch(Error err){
             System.out.print(err.toString());
         }
 
-        polygon = geom2GeoPolygon(geom);
+        polygon = getCurrentGeozone();
+
         m_polygon = new MapPolygon(polygon);
 
         m_map.addMapObject(m_polygon);
@@ -209,6 +223,16 @@ public class TaskManager extends AppCompatActivity {
         }
 
         return geoshape;
+    }
+
+    public String getLastTaskIndex () {
+        Cursor cursor = getActiveUser();
+
+        if(cursor.moveToFirst()){
+            String last_task = cursor.getString(cursor.getColumnIndex(DBHelper.LAST_TASK));
+            return last_task;
+        }
+        return null;
     }
 
 }
