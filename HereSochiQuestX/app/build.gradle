@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 28
@@ -52,3 +53,7 @@ dependencies {
 }
 
 
+sceneform.asset('sampledata/pickleRick/pickle_rick.obj',
+        'default',
+        'sampledata/pickleRick/pickle_rick.sfa',
+        'src/main/res/raw/pickle_rick')

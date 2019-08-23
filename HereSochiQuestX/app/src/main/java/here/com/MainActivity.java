@@ -17,6 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TaskManager taskManager;
+
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
 
     private static final String[] RUNTIME_PERMISSIONS = {
@@ -39,9 +41,13 @@ public class MainActivity extends AppCompatActivity {
                     .requestPermissions(this, RUNTIME_PERMISSIONS, REQUEST_CODE_ASK_PERMISSIONS);
         }
 
+        taskManager = new TaskManager(this, null);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
+            String currentZoneNumber =  taskManager.getCurrentZoneNumber();
             Intent intent = new Intent(MainActivity.this, arActivity.class);
+            intent.putExtra("CURRENT_ZONE_NUMBER", currentZoneNumber);
             MainActivity.this.startActivity(intent);
         });
     }
