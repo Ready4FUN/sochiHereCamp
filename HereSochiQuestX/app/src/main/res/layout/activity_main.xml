@@ -60,6 +60,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.974"
@@ -113,7 +114,8 @@
         app:layout_constraintStart_toStartOf="@+id/mapfragment"
         app:layout_constraintTop_toTopOf="@+id/mapfragment"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/rick" />
+        app:srcCompat="@drawable/rick"
+        android:contentDescription="TODO" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/geolocationBtn"
@@ -130,7 +132,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/mapfragment"
         app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/ic_near_me_white_24dp" />
+        app:srcCompat="@drawable/ic_near_me_white_24dp"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="197dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Мы сделали селфи! Гоу дальше!"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mapfragment"
+        app:layout_constraintTop_toTopOf="@+id/mapfragment"
+        app:layout_constraintVertical_bias="0.665" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

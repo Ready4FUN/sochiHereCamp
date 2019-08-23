@@ -29,7 +29,7 @@ public class TaskManager extends AppCompatActivity {
 
     Map m_map;
     GeoPolygon polygon;
-    MapPolygon m_polygon;
+    static MapPolygon m_polygon;
 
     public TaskManager (AppCompatActivity activity, Map map){
         m_activity = activity;
@@ -65,6 +65,21 @@ public class TaskManager extends AppCompatActivity {
                 db.update(DBHelper.TABLE_TEAMS, cv, where,whereArgs);
             }
         }
+    }
+
+    public void openCongratulationWindow(){
+        LayoutInflater inflater;
+        View v;
+
+        inflater = m_activity.getLayoutInflater();
+        v = inflater.inflate(R.layout.dialog_congratulation, null);
+
+        new MaterialAlertDialogBuilder(m_activity)
+                .setCancelable(false)
+                .setView(v)
+                .setPositiveButton("Ok", (dialogInterface, i) -> {
+                })
+                .show();
     }
 
     public void openCurrentTaskDescription () {

@@ -17,10 +17,10 @@
             android:layout_marginTop="256dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Выйти? Пройденные задания будут утеряны!"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="14dp"
+            android:text="Отлично вы выполнили задание! Сделайте селфи всей командой для подтверждения, нажав на телепорт!"
             android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.671"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.844"
-            app:srcCompat="@drawable/exit" />
+            app:srcCompat="@drawable/happy_morty" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
