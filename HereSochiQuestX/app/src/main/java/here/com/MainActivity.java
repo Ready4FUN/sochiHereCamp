@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TaskManager taskManager;
+
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
 
     private static final String[] RUNTIME_PERMISSIONS = {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat
                     .requestPermissions(this, RUNTIME_PERMISSIONS, REQUEST_CODE_ASK_PERMISSIONS);
         }
+
     }
 
     private static boolean hasPermissions(Context context, String... permissions) {

@@ -15,6 +15,10 @@
     <uses-feature android:name="android.hardware.camera2.full" />
     <uses-feature android:name="android.hardware.camera2.autofocus" />
 
+    <!-- for full ar core. For "AR Optional" apps remove this line.-->
+    <uses-feature android:name="android.hardware.camera.ar" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -49,6 +53,13 @@
         <meta-data
             android:name="com.here.android.maps.license.key"
             android:value="RBbSoKjDn827g3JIiElH15ezgFZ0I0Czw6a8QGLgjdlkJBE2dp6lIEx0VeoE1bSAN7W+gFdGSRHHD4PHmeooBQdCzyOsdxDnpiyRgUVamqm68RiPcrY6UQHWX3Piz5Wnd5gIvNShLuwBhqtaq3Hg0ASyn+9Ly1mF2fYE+U0e5oQzK1Sgvhn5i11IH1AZiusr4rqm+z5WwzMxA3Yue+WIF00HbYYQRiS6iE29SbNQJFdjO9ZrZNcVVB/qiyDDxfMNokVNqM7/jL7cCa+IucBlKMr5nlPiw+IDaJGrVA4bu5Z2AKHn4etn1UOkAjvgFApcLcSujo38dCzIeL7jSZbFBWQriHuvlkl8MeMEq1vol3zzHDXmJeFSZpzhHPmHTDBX7ZL3mnZehUpYHwpExF77CS50FmCK6h8J9Ys1I670YAyEw4b6fdZgyc7C9Aj0qN+20hENCZ+QZE9VCuhaLDfy4QfqnZjZulcd3Sy+H7mUx1H7QJGFqkjn7VooUnsB/kJ4Lh7KIcwMcMv38MCcIeZ/RYujNp/VPMT+pJjMkFeRGwRDKP7jAWmejhbQAWyd36w7OwnxzqNrYCdSTvIcnsEU11Y7dW1o41vOotJuWexn3s4bvIhJ/StCRTszVBBt+CozErQjvbGJ71Q+urCqTy4EqJtuUzt1HERwNNpSObfzBcA=" />
+
+        <!-- Indicates that app requires ARCore ("AR Required"). Causes the Google
+         Play Store to download and install Google Play Services for AR along
+         with the app. For an "AR Optional" app, specify "optional" instead of
+         "required".
+        -->
+        <meta-data android:name="com.google.ar.core" android:value="required" />
 
         <service
             android:name="com.here.android.mpa.service.MapService"
