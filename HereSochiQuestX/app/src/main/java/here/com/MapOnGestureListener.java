@@ -22,7 +22,6 @@ public class MapOnGestureListener implements MapGesture.OnGestureListener {
     MapMarker posSimulator;
     TaskManager taskManager;
     AppCompatActivity m_activity;
-    private ImageView teleportBtn;
 
     public MapOnGestureListener(AppCompatActivity activity, Map map){
         m_map = map;
@@ -35,16 +34,15 @@ public class MapOnGestureListener implements MapGesture.OnGestureListener {
     }
 
     private void checkPointInPolygon (GeoCoordinate point) {
-        teleportBtn = m_activity.findViewById(R.id.fab);
 
         try{
 
             GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
 
             if(checkPolygon.contains(point)){
-                teleportBtn.setVisibility(View.VISIBLE);
-                taskManager.openCongratulationWindow();;
-//                taskManager.updateMap ();
+                taskManager.openCongratulationWindow();
+                taskManager.completeCurrentTask();
+                taskManager.updateMap();
             }
 
         }catch(NullPointerException err){

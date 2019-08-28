@@ -2,6 +2,7 @@ package here.com;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class MapFragmentView extends AppCompatActivity {
 
     public AppCompatActivity m_activity;
 
+    private SharedPreferences attendaceCheck;
+
     public SupportMapFragment m_mapFragment;
     private Map m_map;
 
@@ -40,7 +43,7 @@ public class MapFragmentView extends AppCompatActivity {
     private Button taskInfoBtn;
     private Button clearDBBtn;
     private ImageView teleportBtn;
-    private Button confirmBtn;
+//    private Button confirmBtn;
 
 
     private PositioningManager posManager = null;
@@ -183,7 +186,7 @@ public class MapFragmentView extends AppCompatActivity {
                     // Handle map events
                     m_mapFragment.getMapGesture().addOnGestureListener(new MapOnGestureListener(m_activity, m_map),0, false);
 
-                    openDialogWindow();
+                    checkFirstAttendance ();
                     initControlBtns();
 
                 } else {
@@ -201,7 +204,7 @@ public class MapFragmentView extends AppCompatActivity {
         taskInfoBtn = m_activity.findViewById(R.id.task_info);
         clearDBBtn = m_activity.findViewById(R.id.clearDB);
         teleportBtn = m_activity.findViewById(R.id.fab);
-        confirmBtn = m_activity.findViewById(R.id.confirmBtn);
+//        confirmBtn = m_activity.findViewById(R.id.confirmBtn);
 
         taskInfoBtn.setOnClickListener(v -> {
             taskManager.openCurrentTaskDescription();
@@ -248,6 +251,12 @@ public class MapFragmentView extends AppCompatActivity {
                     .setCancelable(true)
                     .setView(view)
                     .setPositiveButton("Ok", (dialogInterface, i) -> {
+
+                        attendaceCheck = m_activity.getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor ed = attendaceCheck.edit();
+                        ed.putString("new","0");
+                        ed.commit();
+
                         ContentValues cv_active = new ContentValues();
                         ContentValues cv_last_task = new ContentValues();
 
@@ -269,39 +278,38 @@ public class MapFragmentView extends AppCompatActivity {
         });
 
         teleportBtn.setOnClickListener(v -> {
-
-
-            confirmBtn.setVisibility(View.VISIBLE);
-
             Intent intent = new Intent(m_activity, cameraActivity.class);
             m_activity.startActivity(intent);
         });
 
-        confirmBtn.setOnClickListener(view->{
-            if(!taskManager.questIsFinished()){
-                confirmBtn.setVisibility(View.INVISIBLE);
-                taskManager.completeCurrentTask();
-                taskManager.openCurrentTaskDescription();
-            }
-        });
     }
 
     private void openDialogWindow() {
-        Cursor cursor;
 
-        cursor = taskManager.getActiveUser();
+        LayoutInflater inflater = m_activity.getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_start_task, null);
 
-        if(!cursor.moveToFirst()){
-            LayoutInflater inflater = m_activity.getLayoutInflater();
-            View v = inflater.inflate(R.layout.dialog_start_task, null);
+        new MaterialAlertDialogBuilder(m_activity)
+                .setCancelable(false)
+                .setView(v)
+                .setPositiveButton("Начать", (dialogInterface, i) -> {
+//                    taskManager.openCurrentTaskDescription();
+                })
+                .show();
 
-            new MaterialAlertDialogBuilder(m_activity)
-                    .setCancelable(false)
-                    .setView(v)
-                    .setPositiveButton("Начать", (dialogInterface, i) -> {
-                        taskManager.openCurrentTaskDescription();
-                    })
-                    .show();
+    }
+
+    private void checkFirstAttendance () {
+        attendaceCheck = m_activity.getPreferences(MODE_PRIVATE);
+        String res = attendaceCheck.getString("new","unknown");
+
+        if(!res.equals("1")){
+
+            SharedPreferences.Editor ed = attendaceCheck.edit();
+            ed.putString("new","1");
+            ed.commit();
+
+            openDialogWindow();
         }
     }
 

@@ -3,6 +3,7 @@ package here.com;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,16 +47,13 @@ public class TaskManager extends AppCompatActivity {
         cursor = getActiveUser();
 
         if(cursor.moveToFirst()){
+
             int last_task = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.LAST_TASK)));
 
             if(questIsFinished ()){
-                new MaterialAlertDialogBuilder(m_activity)
-                        .setCancelable(false)
-                        .setMessage("Квест выполнен!")
-                        .setPositiveButton("Ok", (dialogInterface, i) -> {
-                        })
-                        .show();
+
             } else {
+
                 last_task += 1;
 
                 ContentValues cv = new ContentValues();
@@ -71,15 +69,24 @@ public class TaskManager extends AppCompatActivity {
         LayoutInflater inflater;
         View v;
 
-        inflater = m_activity.getLayoutInflater();
-        v = inflater.inflate(R.layout.dialog_congratulation, null);
+        if(!questIsFinished()){
+            inflater = m_activity.getLayoutInflater();
+            v = inflater.inflate(R.layout.dialog_congratulation, null);
 
-        new MaterialAlertDialogBuilder(m_activity)
-                .setCancelable(false)
-                .setView(v)
-                .setPositiveButton("Ok", (dialogInterface, i) -> {
-                })
-                .show();
+            new MaterialAlertDialogBuilder(m_activity)
+                    .setCancelable(false)
+                    .setView(v)
+                    .setPositiveButton("Ok", (dialogInterface, i) -> {
+                    })
+                    .show();
+        } else {
+            new MaterialAlertDialogBuilder(m_activity)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", (dialogInterface, i) -> {
+                    })
+                    .show();
+        }
+
     }
 
     public void openCurrentTaskDescription () {
@@ -137,7 +144,7 @@ public class TaskManager extends AppCompatActivity {
         if(cursor.moveToFirst()){
             int last_task = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBHelper.LAST_TASK)));
 
-            if(last_task == 5){
+            if(last_task == 6){
                return true;
             } else {
                 return false;
@@ -158,6 +165,9 @@ public class TaskManager extends AppCompatActivity {
         polygon = getCurrentGeozone();
 
         m_polygon = new MapPolygon(polygon);
+        m_polygon.setFillColor(Color.TRANSPARENT);
+        m_polygon.setLineWidth(2);
+        m_polygon.setLineColor(Color.GREEN);
 
         m_map.addMapObject(m_polygon);
     }
