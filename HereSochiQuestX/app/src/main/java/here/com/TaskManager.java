@@ -19,6 +19,7 @@ import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.MapPolygon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -134,6 +135,43 @@ public class TaskManager extends AppCompatActivity {
                         .show();
             }
         }
+    }
+
+    public HashMap<String, String> getCurrentTaskDesctiption () {
+        Cursor cursor;
+        Cursor cursorTask;
+
+        HashMap<String, String> hmap = null;
+        cursor = getActiveUser();
+
+        if(cursor.moveToFirst()){
+
+            // Get zone_number by last task index
+            String zone_number = getCurrentZoneNumber ();
+
+            // Get zone info by name
+            cursorTask = getZoneByNumber(zone_number);
+
+            if (cursorTask.moveToFirst()) {
+
+                String number = cursor.getString(cursor.getColumnIndex(DBHelper.ZONE_NUMBER));
+                String name = cursor.getString(cursor.getColumnIndex(DBHelper.ZONE_NAME));
+                String language = cursor.getString(cursor.getColumnIndex(DBHelper.LANGUAGE));
+                String img_code = cursor.getString(cursor.getColumnIndex(DBHelper.IMG_CODE));
+                String geom = cursor.getString(cursor.getColumnIndex(DBHelper.GEOM));
+
+                hmap = new HashMap<>();
+                hmap.put(DBHelper.ZONE_NUMBER, number);
+                hmap.put(DBHelper.ZONE_NAME, name);
+                hmap.put(DBHelper.LANGUAGE, language);
+                hmap.put(DBHelper.IMG_CODE, img_code);
+                hmap.put(DBHelper.GEOM, geom);
+                
+                return hmap;
+            }
+        }
+
+        return hmap;
     }
 
     public Boolean questIsFinished (){
