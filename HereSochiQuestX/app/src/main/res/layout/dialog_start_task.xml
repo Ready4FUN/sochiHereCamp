@@ -14,26 +14,79 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp">
 
-            <TextView
-                android:id="@+id/title"
+            <ImageView
+                android:id="@+id/imageView4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Описание квеста"
-                android:textAlignment="center"
-                android:textSize="20dp"
-                android:padding="10dp"/>
+                android:layout_height="269dp"
+                app:srcCompat="@drawable/annotation"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/quest_info_text"
-                android:textSize="18dp"
-                android:padding="15dp"/>
+                android:text="@string/introduction"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                app:fontFamily="sans-serif-light"
+                android:contentDescription="TODO"/>
+
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="269dp"
+                app:srcCompat="@drawable/problem"
+                android:contentDescription="TODO"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/problem"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                app:fontFamily="sans-serif-light" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="261dp"
+                app:srcCompat="@drawable/teleport"
+                android:contentDescription="TODO"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                app:fontFamily="sans-serif-light"
+                android:text="@string/task"
+                android:contentDescription="TODO"/>
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="261dp"
+                app:srcCompat="@drawable/wubba_luuba_duu"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="261dp"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                app:fontFamily="sans-serif-light"
+                android:text="@string/result"
+                android:contentDescription="TODO"/>
+
+
         </LinearLayout>
     </ScrollView>
 

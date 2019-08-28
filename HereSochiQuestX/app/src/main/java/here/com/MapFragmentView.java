@@ -1,9 +1,14 @@
 package here.com;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +21,7 @@ import com.here.android.mpa.common.GeoPosition;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.common.PositioningManager;
 import com.here.android.mpa.mapping.Map;
+import com.here.android.mpa.mapping.MapGesture;
 import com.here.android.mpa.mapping.SupportMapFragment;
 
 import java.io.File;
@@ -26,18 +32,26 @@ public class MapFragmentView extends AppCompatActivity {
 
     public AppCompatActivity m_activity;
 
+    private SharedPreferences attendaceCheck;
+
     public SupportMapFragment m_mapFragment;
     private Map m_map;
 
     private FloatingActionButton geolocationBtn;
     private FloatingActionButton zoomInBtn;
     private FloatingActionButton zoomOutBtn;
-    private FloatingActionButton taskInfoBtn;
-    private FloatingActionButton clearDBBtn;
+    private Button taskInfoBtn;
+    private Button clearDBBtn;
+    private ImageView teleportBtn;
+//    private Button confirmBtn;
+
 
     private PositioningManager posManager = null;
     private Boolean paused = false;
     private Boolean initialized = false;
+
+    MapOnGestureListener mapOnGestureListener;
+    MapGesture.OnGestureListener listener;
 
     TaskManager taskManager;
 
@@ -63,13 +77,13 @@ public class MapFragmentView extends AppCompatActivity {
             }
 
             try{
-                GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
-                GeoCoordinate currentPosition = new GeoCoordinate(position.getCoordinate());
+//                taskManager.updateMap ();
+//                GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
+//                GeoCoordinate currentPosition = new GeoCoordinate(position.getCoordinate());
 
-                if(checkPolygon.contains(currentPosition)){
-                    taskManager.completeCurrentTask();
-                    taskManager.openCurrentTaskDescription();
-                }
+//                if(checkPolygon.contains(currentPosition)){
+//                    teleportBtn.setVisibility(View.VISIBLE);
+//                }
 
             }catch(NullPointerException err){
                 System.out.print(err);
@@ -139,32 +153,47 @@ public class MapFragmentView extends AppCompatActivity {
 
         if(!success) {
             Toast.makeText(m_activity.getApplicationContext(), "Unable to set isolated disk cache path.", Toast.LENGTH_LONG);
-        } else m_mapFragment.init(error -> {
-            if (error == OnEngineInitListener.Error.NONE) {
-                // retrieve a reference of the map from the map fragment
-                m_map = m_mapFragment.getMap();
-                // Set the map center to the Vancouver region (no animation)
-                m_map.setCenter(new GeoCoordinate(55.750907459297785, 37.61693000793457, 0.0),
-                        Map.Animation.NONE);
-                // Set the zoom level to the average between min and max
-                m_map.setZoomLevel((m_map.getMaxZoomLevel() + m_map.getMinZoomLevel()) / 2);
+        } else {
+            m_mapFragment.init(error -> {
+                if (error == OnEngineInitListener.Error.NONE) {
+                    // retrieve a reference of the map from the map fragment
+                    m_map = m_mapFragment.getMap();
+                    // Set the map center to the Vancouver region (no animation)
+                    m_map.setCenter(new GeoCoordinate(55.750907459297785, 37.61693000793457, 0.0),
+                            Map.Animation.NONE);
+                    // Set the zoom level to the average between min and max
+                    m_map.setZoomLevel((m_map.getMaxZoomLevel() + m_map.getMinZoomLevel()) / 2);
 
-                posManager = PositioningManager.getInstance();
-                posManager.addListener(new WeakReference<>(positionListener));
-                posManager.start(
-                        PositioningManager.LocationMethod.GPS_NETWORK);
 
-                m_map.getPositionIndicator().setVisible(true);
+                    // Initialize and start geolocation service
+                    posManager = PositioningManager.getInstance();
 
-                taskManager = new TaskManager(m_activity, m_map);
+                    // Add geolocation listener to manager
+                    posManager.addListener(new WeakReference<>(positionListener));
 
-                openDialogWindow();
-                initControlBtns();
+                    // Start listening geolocation
+                    posManager.start(
+                            PositioningManager.LocationMethod.GPS_NETWORK);
 
-            } else {
-                System.out.println("ERROR: Cannot initialize Map Fragment");
-            }
-        });
+                    // Set geolocation idicator visible
+                    m_map.getPositionIndicator().setVisible(true);
+
+                    // Initialize task manager
+                    taskManager = new TaskManager(m_activity, m_map);
+
+                    taskManager.updateMap ();
+
+                    // Handle map events
+                    m_mapFragment.getMapGesture().addOnGestureListener(new MapOnGestureListener(m_activity, m_map),0, false);
+
+                    checkFirstAttendance ();
+                    initControlBtns();
+
+                } else {
+                    System.out.println("ERROR: Cannot initialize Map Fragment");
+                }
+            });
+        }
 
     }
 
@@ -174,7 +203,8 @@ public class MapFragmentView extends AppCompatActivity {
         zoomOutBtn = m_activity.findViewById(R.id.zoomOutBtn);
         taskInfoBtn = m_activity.findViewById(R.id.task_info);
         clearDBBtn = m_activity.findViewById(R.id.clearDB);
-
+        teleportBtn = m_activity.findViewById(R.id.fab);
+//        confirmBtn = m_activity.findViewById(R.id.confirmBtn);
 
         taskInfoBtn.setOnClickListener(v -> {
             taskManager.openCurrentTaskDescription();
@@ -211,26 +241,75 @@ public class MapFragmentView extends AppCompatActivity {
         });
 
         clearDBBtn.setOnClickListener(v->{
+            LayoutInflater inflater;
+            View view;
 
+            inflater = m_activity.getLayoutInflater();
+            view = inflater.inflate(R.layout.dialog_exit, null);
+
+            new MaterialAlertDialogBuilder(m_activity)
+                    .setCancelable(true)
+                    .setView(view)
+                    .setPositiveButton("Ok", (dialogInterface, i) -> {
+
+                        attendaceCheck = m_activity.getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor ed = attendaceCheck.edit();
+                        ed.putString("new","0");
+                        ed.commit();
+
+                        ContentValues cv_active = new ContentValues();
+                        ContentValues cv_last_task = new ContentValues();
+
+                        cv_active.put(DBHelper.ACTIVE, 0);
+                        db.update(DBHelper.TABLE_TEAMS, cv_active, null,null);
+
+                        cv_last_task.put(DBHelper.LAST_TASK, 0);
+                        db.update(DBHelper.TABLE_TEAMS, cv_last_task, null,null);
+
+                        Intent intent = new Intent(m_activity, AuthActivity.class);
+                        m_activity.startActivity(intent);
+                        m_activity.finish();
+
+                    }).setNegativeButton("Отмена", (dialogInterface, i) ->{
+                    })
+                    .show();
+
+            posManager.stop();
+        });
+
+        teleportBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(m_activity, cameraActivity.class);
+            m_activity.startActivity(intent);
         });
 
     }
 
     private void openDialogWindow() {
-        Cursor cursor;
 
-        cursor = taskManager.getActiveUser();
+        LayoutInflater inflater = m_activity.getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_start_task, null);
 
-        if(!cursor.moveToFirst()){
-            LayoutInflater inflater = m_activity.getLayoutInflater();
-            View v = inflater.inflate(R.layout.dialog_start_task, null);
+        new MaterialAlertDialogBuilder(m_activity)
+                .setCancelable(false)
+                .setView(v)
+                .setPositiveButton("Начать", (dialogInterface, i) -> {
+//                    taskManager.openCurrentTaskDescription();
+                })
+                .show();
 
-            new MaterialAlertDialogBuilder(m_activity)
-                    .setCancelable(false)
-                    .setView(v)
-                    .setPositiveButton("Начать", (dialogInterface, i) -> {
-                    })
-                    .show();
+    }
+
+    private void checkFirstAttendance () {
+        attendaceCheck = m_activity.getPreferences(MODE_PRIVATE);
+        String res = attendaceCheck.getString("new","unknown");
+
+        if(!res.equals("1")){
+
+            SharedPreferences.Editor ed = attendaceCheck.edit();
+            ed.putString("new","1");
+            ed.commit();
+
+            openDialogWindow();
         }
     }
 

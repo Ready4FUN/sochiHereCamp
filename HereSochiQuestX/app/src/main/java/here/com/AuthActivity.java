@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private SharedPreferences preferences;
-
     Button btnStart;
     TextView passInput;
     DBHelper dbHelper;
@@ -51,12 +49,6 @@ public class AuthActivity extends AppCompatActivity {
             cursor = db.rawQuery(query, new String[] {team_code});
 
             if (cursor.moveToFirst()) {
-
-                // Save team_code in preferences
-                preferences = getPreferences(MODE_PRIVATE);
-                SharedPreferences.Editor ed = preferences.edit();
-                ed.putString("team_code", team_code);
-                ed.commit();
 
                 // Save active user
                 ContentValues cv = new ContentValues();
