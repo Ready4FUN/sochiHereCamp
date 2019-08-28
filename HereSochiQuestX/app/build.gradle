@@ -57,3 +57,24 @@ sceneform.asset('sampledata/pickleRick/pickle_rick.obj',
         'default',
         'sampledata/pickleRick/pickle_rick.sfa',
         'src/main/res/raw/pickle_rick')
+
+
+sceneform.asset('sampledata/snowball/model.obj',
+        'default',
+        'sampledata/snowball/model.sfa',
+        'src/main/res/raw/model')
+
+sceneform.asset('sampledata/mrPoopyButthole/butthole.obj',
+        'default',
+        'sampledata/mrPoopyButthole/butthole.sfa',
+        'src/main/res/raw/butthole')
+
+sceneform.asset('sampledata/head/showme.obj',
+        'default',
+        'sampledata/head/showme.sfa',
+        'src/main/res/raw/showme')
+
+sceneform.asset('sampledata/butterRobot/butterrobot.obj',
+        'default',
+        'sampledata/butterRobot/butterrobot.sfa',
+        'src/main/res/raw/butterrobot')

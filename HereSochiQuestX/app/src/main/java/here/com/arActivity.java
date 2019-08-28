@@ -45,7 +45,7 @@ public class arActivity extends AppCompatActivity {
     Log.e("intent",  currentZoneNumber);
 
     ModelRenderable.builder()
-            .setSource(this, R.raw.pickle_rick)
+            .setSource(this, R.raw.butterrobot)
             .build()
             .thenAccept(renderable -> andyRenderable = renderable)
             .exceptionally(
@@ -75,7 +75,7 @@ public class arActivity extends AppCompatActivity {
     if (this.anchorNode == null) {
       Session session = arFragment.getArSceneView().getSession();
       float[] pos = { 0,-1,-1 };
-      float[] rotation = {0,7,0,1};
+      float[] rotation = {0,-1,0,1};
       Anchor anchor =  session.createAnchor(new Pose(pos, rotation));
 
       anchorNode = new AnchorNode(anchor);
@@ -86,3 +86,22 @@ public class arActivity extends AppCompatActivity {
 
 
 }
+
+
+//position for pickle rick
+//pickle_rick
+// float[] pos = { 0,-1,-1 };
+// float[] rotation = {0,7,0,1};
+
+//showball
+//model
+//float[] pos = { 0,-1,-1 };
+//float[] rotation = {0,0,0,1};
+
+//butthole
+// float[] pos = { 0,-1,-1 };
+//float[] rotation = {0,3,0,1};
+
+// butterrobot
+//float[] pos = { 0,-1,-1 };
+//float[] rotation = {0,-1,0,1};
