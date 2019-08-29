@@ -3,10 +3,16 @@ package here.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
 import com.google.ar.core.Pose;
@@ -26,6 +32,11 @@ public class arActivity extends AppCompatActivity {
   private ModelRenderable andyRenderable;
   private ArFragment arFragment;
   private AnchorNode anchorNode;
+  private int DefRenderable;
+
+
+  private String lastTaskIndex;
+  private boolean taskDone;
 
 
   @Override
@@ -40,12 +51,50 @@ public class arActivity extends AppCompatActivity {
     arFragment.getPlaneDiscoveryController().setInstructionView(null);
 
 
-    String currentZoneNumber = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
+    lastTaskIndex = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
+    taskDone = (boolean)getIntent().getSerializableExtra("TASK_DONE");
+    //Log.e("intent",  lastTaskIndex);
 
-    Log.e("intent",  currentZoneNumber);
+    TextView arText = (TextView)findViewById(R.id.morphArText);
+
+    Button arButton = (Button)findViewById(R.id.morphArButton);
+
+    if(taskDone){
+      //TODO вставить получение задания
+      arText.setText("Зацени новое задание");
+      arButton.setText(getResources().getString(R.string.backToMap));
+    } else {
+      arText.setText(getResources().getString(R.string.done));
+      arButton.setText(getResources().getString(R.string.stringSelfieButton));
+    }
+
+    Toast toast = Toast.makeText(getApplicationContext(),
+            lastTaskIndex, Toast.LENGTH_SHORT);
+    toast.show();
+
+    switch (lastTaskIndex){
+      case ("1"):
+        DefRenderable =  R.raw.pickle_rick;
+        break;
+      case ("2"):
+        DefRenderable =  R.raw.model;
+        break;
+      case ("3"):
+        DefRenderable =  R.raw.butthole;
+        break;
+      case ("4"):
+        DefRenderable =  R.raw.butterrobot;
+        break;
+      case ("5"):
+        DefRenderable =  R.raw.pickle_rick;
+        break;
+      default:
+        DefRenderable = R.raw.pickle_rick;
+        break;
+    }
 
     ModelRenderable.builder()
-            .setSource(this, R.raw.butterrobot)
+            .setSource(this, DefRenderable)
             .build()
             .thenAccept(renderable -> andyRenderable = renderable)
             .exceptionally(
@@ -74,8 +123,67 @@ public class arActivity extends AppCompatActivity {
     // Place the anchor 1m in front of the camera if anchorNode is null.
     if (this.anchorNode == null) {
       Session session = arFragment.getArSceneView().getSession();
+
       float[] pos = { 0,-1,-1 };
       float[] rotation = {0,-1,0,1};
+
+      switch (lastTaskIndex){
+        case ("1"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 7;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("2"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 0;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("3"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 3;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("4"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = -1;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("5"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 7;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        default:
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 7;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+      }
+
       Anchor anchor =  session.createAnchor(new Pose(pos, rotation));
 
       anchorNode = new AnchorNode(anchor);
@@ -84,7 +192,33 @@ public class arActivity extends AppCompatActivity {
     }
   }
 
+  //на часах 03:47. Спать хочется пиздец как. Ебал в рот разработку под андроид. То, что в других языках сделано легко и просто...
+  //ЗДЕСЬ БЛЯТЬ АДСКАЯ ЁБАНЬ, СУКА БЛЯТЬ, КУРВА
+  //Вот почему я не могу задать border и скругление углов простым параметром
+  //НЕТ БЛЯТЬ, РИСУЙ КАРТИНКУ СУКА
+  //В рот ебал
+  //И да, я не хочу пользоваться многострочными комментариями
+  //ИБО ЕСЛИ НАЧАЛ ЕБАШИТЬ КОСТЫЛИ, ЕБАШЬ ДО КОНЦА, СТАНЬ ЛУЧШИМ В ЭТОМ
+  //P.S. sudo сделать красиво
+  public void goSelfie(View target) {
+    //Да, мы таскаем lastTaskIndex по активностям... что бы не было ошибок ;3
+    //Ахуенно, не правда ли?
 
+    //6:20 на часах
+    //Зацени какой костль придумал. Сам в ахуе
+    //Я щас такой думал запилить переключение через switch. Булевой переменной.
+    //КАРЛ, БУЛЕВАЯ ПЕРЕМЕННАЯ В ОПЕРАТОРЕ SWITCH
+    //А когда он начал ругаться на это, думал bool в int перевести
+    if(taskDone){
+      Intent intent = new Intent(this, MainActivity.class);
+      this.startActivity(intent);
+    } else {
+      Intent intent = new Intent(this, cameraActivity.class);
+      intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
+      this.startActivity(intent);
+    }
+
+  }
 }
 
 
@@ -105,3 +239,4 @@ public class arActivity extends AppCompatActivity {
 // butterrobot
 //float[] pos = { 0,-1,-1 };
 //float[] rotation = {0,-1,0,1};
+

@@ -278,7 +278,13 @@ public class MapFragmentView extends AppCompatActivity {
         });
 
         teleportBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(m_activity, cameraActivity.class);
+            //Intent intent = new Intent(m_activity, cameraActivity.class);
+            //m_activity.startActivity(intent);
+
+            String lastTaskIndex =  taskManager.getLastTaskIndex();
+            Intent intent = new Intent(m_activity, arActivity.class);
+            intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
+            intent.putExtra("TASK_DONE", false);
             m_activity.startActivity(intent);
         });
 

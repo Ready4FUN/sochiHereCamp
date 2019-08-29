@@ -8,28 +8,41 @@
 
     <here.com.AutoFitTextureView
         android:id="@+id/texture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/control"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/colorPrimary">
+       >
 
         <Button
             android:id="@+id/picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+
             android:text="@string/picture" />
 
+        <Button
+            android:id="@+id/done"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doneButton"
+            android:onClick="doneSelfie"
+             />
 
-    </FrameLayout>
+
+
+
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

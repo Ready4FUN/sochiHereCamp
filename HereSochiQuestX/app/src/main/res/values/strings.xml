@@ -2,7 +2,7 @@
     <string name="app_name">HereSochiQuestX</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="picture">Picture</string>
+    <string name="picture">DO A MAKE SELFIE</string>
     <string name="description_info">Info</string>
     <string name="request_permission">This sample needs camera permission.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
@@ -18,5 +18,17 @@
     </string>
     <string name="result">
          Когда соберёте всех героев, получите приз! Хоршего приключения!
+    </string>
+    <string name="done">
+         Задание выполнено. А теперь сделай крутое селфи на фоне и не забудь залить в инстаграм ;3
+    </string>
+    <string name="stringSelfieButton">
+         ХРЕНАЧЬ СЕЛФАЧЬ!1!!11!1!
+    </string>
+    <string name="doneButton">
+         СЕЛФАЧЬ ГОТОВ
+    </string>
+    <string name="backToMap">
+         ПОКАЖИ МНЕ КАРТУ
     </string>
 </resources>
