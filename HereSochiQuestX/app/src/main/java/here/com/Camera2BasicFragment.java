@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -31,9 +33,13 @@ import android.hardware.camera2.params.Face;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -58,11 +64,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -238,7 +247,45 @@ public class Camera2BasicFragment extends Fragment
 
         @Override
         public void onImageAvailable(ImageReader reader) {
+           // mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            // get the path to gallery and crate new Album to my app
+            String pathD = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/";
+            File mediaStorageDir = new File(pathD, "sochiHereQuest");
+            if (!mediaStorageDir.exists()) {
+                if (!mediaStorageDir.mkdirs()) {
+                    Log.d("sochiHereQuest", "failed to create directory");
+                }
+            }
+        /*Second I cut mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
+        from onActivityCreated and add here with the new path from my Album*/
+
+
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            mFile = new File(mediaStorageDir,"sochiHereQuest"+"_"+ timeStamp+".jpg");
+
+            //Then the contentValues
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE, "ImageName");
+            values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+            values.put(MediaStore.Images.Media.CONTENT_TYPE,"image/jpg");
+            values.put("_data", mFile.getAbsolutePath());
+            ContentResolver cr = getActivity().getContentResolver();
+            cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            //This line is already in the code
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            //Не уверен точно, кто писал этот код. Я или мой хронический недосып. Но... оно работате.
+            //Регестрирует фотку как фотку, а то чё мы как лохи. И инстаграм её видит. Охуенчик же, ну
+            //а на часах 05:18
+            MediaScannerConnection.scanFile(getContext(),
+                    new String[] { mFile.toString() }, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.i("ExternalStorage", "Scanned " + path + ":");
+                            Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
         }
 
     };
@@ -381,7 +428,7 @@ public class Camera2BasicFragment extends Fragment
 
     /**
      * Given {@code choices} of {@code Size}s supported by a camera, choose the smallest one that
-     * is at least as large as the respective texture view size, and that is at most as large as the
+     * is at least as lar as the respective texture view size, and that is at most as large as the
      * respective max size, and whose aspect ratio matches with the specified value. If such size
      * doesn't exist, choose the largest one that is at most as large as the respective max size,
      * and whose aspect ratio matches with the specified value.
@@ -448,7 +495,7 @@ public class Camera2BasicFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
+       // mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
     }
 
     @Override
@@ -894,7 +941,7 @@ public class Camera2BasicFragment extends Fragment
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
                     showToast("Saved: " + mFile);
-                    Log.d(TAG, mFile.toString());
+                    //Log.d(TAG, mFile.toString());
                     unlockFocus();
                 }
             };

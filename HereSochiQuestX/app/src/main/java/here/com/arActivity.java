@@ -3,10 +3,12 @@ package here.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class arActivity extends AppCompatActivity {
   private ArFragment arFragment;
   private AnchorNode anchorNode;
   private int DefRenderable;
+
 
   private String lastTaskIndex;
 
@@ -173,8 +176,18 @@ public class arActivity extends AppCompatActivity {
     }
   }
 
-
-
+  //на часах 03:47. Спать хочется пиздец как. Ебал в рот разработку под андроид. То, что в других языках сделано легко и просто...
+  //ЗДЕСЬ БЛЯТЬ АДСКАЯ ЁБАНЬ, СУКА БЛЯТЬ, КУРВА
+  //Вот почему я не могу задать border и скругление углов простым параметром
+  //НЕТ БЛЯТЬ, РИСУЙ КАРТИНКУ СУКА
+  //В рот ебал
+  //И да, я не хочу пользоваться многострочными комментариями
+  //ИБО ЕСЛИ НАЧАЛ ЕБАШИТЬ КОСТЫЛИ, ЕБАШЬ ДО КОНЦА, СТАНЬ ЛУЧШИМ В ЭТОМ
+  //P.S. sudo сделать красиво
+  public void goSelfie(View target) {
+    Intent intent = new Intent(this, cameraActivity.class);
+    this.startActivity(intent);
+  }
 }
 
 
@@ -195,3 +208,4 @@ public class arActivity extends AppCompatActivity {
 // butterrobot
 //float[] pos = { 0,-1,-1 };
 //float[] rotation = {0,-1,0,1};
+
