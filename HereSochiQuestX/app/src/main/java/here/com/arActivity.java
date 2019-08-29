@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
@@ -34,6 +36,7 @@ public class arActivity extends AppCompatActivity {
 
 
   private String lastTaskIndex;
+  private boolean taskDone;
 
 
   @Override
@@ -49,8 +52,21 @@ public class arActivity extends AppCompatActivity {
 
 
     lastTaskIndex = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
-
+    taskDone = (boolean)getIntent().getSerializableExtra("TASK_DONE");
     //Log.e("intent",  lastTaskIndex);
+
+    TextView arText = (TextView)findViewById(R.id.morphArText);
+
+    Button arButton = (Button)findViewById(R.id.morphArButton);
+
+    if(taskDone){
+      //TODO вставить получение задания
+      arText.setText("Зацени новое задание");
+      arButton.setText(getResources().getString(R.string.backToMap));
+    } else {
+      arText.setText(getResources().getString(R.string.done));
+      arButton.setText(getResources().getString(R.string.stringSelfieButton));
+    }
 
     Toast toast = Toast.makeText(getApplicationContext(),
             lastTaskIndex, Toast.LENGTH_SHORT);
@@ -185,8 +201,23 @@ public class arActivity extends AppCompatActivity {
   //ИБО ЕСЛИ НАЧАЛ ЕБАШИТЬ КОСТЫЛИ, ЕБАШЬ ДО КОНЦА, СТАНЬ ЛУЧШИМ В ЭТОМ
   //P.S. sudo сделать красиво
   public void goSelfie(View target) {
-    Intent intent = new Intent(this, cameraActivity.class);
-    this.startActivity(intent);
+    //Да, мы таскаем lastTaskIndex по активностям... что бы не было ошибок ;3
+    //Ахуенно, не правда ли?
+
+    //6:20 на часах
+    //Зацени какой костль придумал. Сам в ахуе
+    //Я щас такой думал запилить переключение через switch. Булевой переменной.
+    //КАРЛ, БУЛЕВАЯ ПЕРЕМЕННАЯ В ОПЕРАТОРЕ SWITCH
+    //А когда он начал ругаться на это, думал bool в int перевести
+    if(taskDone){
+      Intent intent = new Intent(this, MainActivity.class);
+      this.startActivity(intent);
+    } else {
+      Intent intent = new Intent(this, cameraActivity.class);
+      intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
+      this.startActivity(intent);
+    }
+
   }
 }
 

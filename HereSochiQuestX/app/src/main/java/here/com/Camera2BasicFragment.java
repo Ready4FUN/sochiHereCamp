@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -490,6 +491,7 @@ public class Camera2BasicFragment extends Fragment
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         view.findViewById(R.id.picture).setOnClickListener(this);
+
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 
@@ -998,6 +1000,7 @@ public class Camera2BasicFragment extends Fragment
                 break;
             }
 
+
         }
     }
 
@@ -1116,8 +1119,6 @@ public class Camera2BasicFragment extends Fragment
                     .create();
         }
     }
-
-
 
 }
 

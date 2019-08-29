@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/text_view_id"
+                android:id="@+id/morphArText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
@@ -34,7 +34,7 @@
                 android:text="@string/done" />
 
             <Button
-                android:id="@+id/selfieButton"
+                android:id="@+id/morphArButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/stringSelfieButton"

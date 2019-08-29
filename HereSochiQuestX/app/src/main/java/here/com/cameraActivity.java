@@ -2,12 +2,15 @@ package here.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
 public class cameraActivity extends AppCompatActivity {
+
+    private String lastTaskIndexCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,20 @@ public class cameraActivity extends AppCompatActivity {
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
         }
+
+        lastTaskIndexCamera = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
+    }
+
+
+    public void doneSelfie(View target) {
+        //Да, мы таскаем lastTaskIndex по активностям... что бы не было ошибок ;3
+        //Ахуенно, не правда ли?
+        Intent intent = new Intent(this, arActivity.class);
+        intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndexCamera);
+        intent.putExtra("TASK_DONE", true);
+
+        //TODO вызвать функцию выполненого задания
+        this.startActivity(intent);
     }
 
     @Override

@@ -28,4 +28,7 @@
     <string name="doneButton">
          СЕЛФАЧЬ ГОТОВ
     </string>
+    <string name="backToMap">
+         ПОКАЖИ МНЕ КАРТУ
+    </string>
 </resources>
