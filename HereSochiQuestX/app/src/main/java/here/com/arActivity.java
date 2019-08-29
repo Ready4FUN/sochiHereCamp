@@ -226,6 +226,7 @@ public class arActivity extends AppCompatActivity {
     } else {
       Intent intent = new Intent(this, cameraActivity.class);
       intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
+      intent.putExtra("TRUE_AR", true);
       this.startActivity(intent);
     }
 
