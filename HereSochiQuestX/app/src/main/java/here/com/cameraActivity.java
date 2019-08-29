@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 public class cameraActivity extends AppCompatActivity {
 
+    TaskManager taskManager;
+
     private String lastTaskIndexCamera;
 
     @Override
@@ -27,13 +29,15 @@ public class cameraActivity extends AppCompatActivity {
 
 
     public void doneSelfie(View target) {
+        taskManager = new TaskManager(this, null);
+
         //Да, мы таскаем lastTaskIndex по активностям... что бы не было ошибок ;3
         //Ахуенно, не правда ли?
         Intent intent = new Intent(this, arActivity.class);
         intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndexCamera);
         intent.putExtra("TASK_DONE", true);
 
-        //TODO вызвать функцию выполненого задания
+        taskManager.completeCurrentTask();
         this.startActivity(intent);
     }
 
