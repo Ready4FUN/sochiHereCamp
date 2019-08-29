@@ -25,4 +25,7 @@
     <string name="stringSelfieButton">
          ХРЕНАЧЬ СЕЛФАЧЬ!1!!11!1!
     </string>
+    <string name="doneButton">
+         СЕЛФАЧЬ ГОТОВ
+    </string>
 </resources>

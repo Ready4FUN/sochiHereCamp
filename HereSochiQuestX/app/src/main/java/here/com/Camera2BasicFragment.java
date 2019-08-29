@@ -43,6 +43,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -1115,6 +1116,8 @@ public class Camera2BasicFragment extends Fragment
                     .create();
         }
     }
+
+
 
 }
 
