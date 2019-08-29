@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.google.ar.core.ArCoreApk;
 
 import java.util.HashMap;
 
@@ -17,6 +20,8 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private TaskManager taskManager;
+
+
 
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
 
@@ -87,5 +92,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupMapFragmentView() {
         MapFragmentView m_mapFragmentView = new MapFragmentView(this);
     }
+
+
+
+
 
 }
