@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.ar.core.Anchor;
 import com.google.ar.core.Pose;
@@ -26,6 +28,9 @@ public class arActivity extends AppCompatActivity {
   private ModelRenderable andyRenderable;
   private ArFragment arFragment;
   private AnchorNode anchorNode;
+  private int DefRenderable;
+
+  private String lastTaskIndex;
 
 
   @Override
@@ -40,12 +45,37 @@ public class arActivity extends AppCompatActivity {
     arFragment.getPlaneDiscoveryController().setInstructionView(null);
 
 
-    String currentZoneNumber = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
+    lastTaskIndex = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
 
-    Log.e("intent",  currentZoneNumber);
+    //Log.e("intent",  lastTaskIndex);
+
+    Toast toast = Toast.makeText(getApplicationContext(),
+            lastTaskIndex, Toast.LENGTH_SHORT);
+    toast.show();
+
+    switch (lastTaskIndex){
+      case ("1"):
+        DefRenderable =  R.raw.pickle_rick;
+        break;
+      case ("2"):
+        DefRenderable =  R.raw.model;
+        break;
+      case ("3"):
+        DefRenderable =  R.raw.butthole;
+        break;
+      case ("4"):
+        DefRenderable =  R.raw.butterrobot;
+        break;
+      case ("5"):
+        DefRenderable =  R.raw.pickle_rick;
+        break;
+      default:
+        DefRenderable = R.raw.pickle_rick;
+        break;
+    }
 
     ModelRenderable.builder()
-            .setSource(this, R.raw.butterrobot)
+            .setSource(this, DefRenderable)
             .build()
             .thenAccept(renderable -> andyRenderable = renderable)
             .exceptionally(
@@ -74,8 +104,67 @@ public class arActivity extends AppCompatActivity {
     // Place the anchor 1m in front of the camera if anchorNode is null.
     if (this.anchorNode == null) {
       Session session = arFragment.getArSceneView().getSession();
+
       float[] pos = { 0,-1,-1 };
       float[] rotation = {0,-1,0,1};
+
+      switch (lastTaskIndex){
+        case ("1"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 7;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("2"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 0;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("3"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 3;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("4"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = -1;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        case ("5"):
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 7;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+        default:
+          pos[0] = 0;
+          pos[1] = -1;
+          pos[2] = -1;
+          rotation[0] = 0;
+          rotation[1] = 7;
+          rotation[2] = 0;
+          rotation[3] = 1;
+          break;
+      }
+
       Anchor anchor =  session.createAnchor(new Pose(pos, rotation));
 
       anchorNode = new AnchorNode(anchor);
