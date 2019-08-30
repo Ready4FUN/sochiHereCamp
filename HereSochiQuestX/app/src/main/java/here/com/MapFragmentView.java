@@ -342,11 +342,14 @@ public class MapFragmentView extends AppCompatActivity {
                 }
             }, 200);
         }
+
         if (availability.isSupported()) {
-            supportArCore = true;
+            supportArCore = false;
+
             // indicator on the button.
         } else { // Unsupported or unknown.
             supportArCore = false;
+
         }
     }
 
