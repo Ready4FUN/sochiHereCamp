@@ -72,9 +72,9 @@ public class unsuportedArCore extends AppCompatActivity {
             arButton.setText(getResources().getString(R.string.stringSelfieButton));
         }
 
-        Toast toast = Toast.makeText(getApplicationContext(),
-                lastTaskIndex, Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(getApplicationContext(),
+//                lastTaskIndex, Toast.LENGTH_SHORT);
+//        toast.show();
 
         switch (lastTaskIndex){
             case ("1"):

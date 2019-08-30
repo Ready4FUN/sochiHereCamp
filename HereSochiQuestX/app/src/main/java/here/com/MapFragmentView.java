@@ -94,11 +94,6 @@ public class MapFragmentView extends AppCompatActivity {
                     teleportBtn.setVisibility(View.VISIBLE);
 
                     taskManager.updateMap();
-
-                    Toast toast = Toast.makeText(m_activity,
-                            "в зоне", Toast.LENGTH_SHORT);
-                    toast.show();
-
                 }
 
             }catch(NullPointerException err){
@@ -196,6 +191,7 @@ public class MapFragmentView extends AppCompatActivity {
 
                     // Set geolocation idicator visible
                     m_map.getPositionIndicator().setVisible(true);
+                    m_map.getPositionIndicator().setAccuracyIndicatorVisible(true);
 
                     // Initialize task manager
                     taskManager = new TaskManager(m_activity, m_map);

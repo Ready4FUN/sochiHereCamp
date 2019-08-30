@@ -48,9 +48,9 @@ public class MapOnGestureListener implements MapGesture.OnGestureListener {
 
                 taskManager.updateMap();
 
-                Toast toast = Toast.makeText(m_activity,
-                        "в зоне", Toast.LENGTH_SHORT);
-                toast.show();
+//                Toast toast = Toast.makeText(m_activity,
+//                        "в зоне", Toast.LENGTH_SHORT);
+//                toast.show();
 
             }
 
