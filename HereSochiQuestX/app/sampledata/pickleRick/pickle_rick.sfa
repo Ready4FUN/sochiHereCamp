@@ -63,7 +63,6 @@
     file: 'sampledata/pickleRick/pickle_rick.obj',
     name: 'pickle_rick',
     recenter: 'root',
-<<<<<<< HEAD
     scale: 0.0080920000000000002,
   },
   samplers: [
@@ -77,21 +76,6 @@
       name: 'eye',
       pipeline_name: 'eye.jpg',
     },
-=======
-    scale: 0.0028,
-  },
-  samplers: [
-    {
-      file: 'sampledata/pickleRick/eye.jpg',
-      name: 'eye',
-      pipeline_name: 'eye.jpg',
-    },
-    {
-      file: 'sampledata/pickleRick/M_04___Default.jpg',
-      name: 'M_04___Default',
-      pipeline_name: 'M_04___Default.jpg',
-    },
->>>>>>> 6da7d0014718189be65e54438c87792f096b65bc
   ],
   version: '0.54:2',
 }

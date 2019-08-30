@@ -1,8 +1,6 @@
 package here.com;
 
 import android.graphics.PointF;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;

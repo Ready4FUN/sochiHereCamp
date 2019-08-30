@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,7 +40,6 @@ public class TaskManager extends AppCompatActivity {
 
         dbHelper = new DBHelper(m_activity);
         db = dbHelper.getReadableDatabase();
-
     }
 
     public void completeCurrentTask () {
@@ -139,7 +139,6 @@ public class TaskManager extends AppCompatActivity {
 
     public HashMap<String, String> getCurrentTaskDesctiption () {
         Cursor cursor;
-        Cursor cursorTask;
 
         HashMap<String, String> hmap = null;
         cursor = getActiveUser();
@@ -150,9 +149,9 @@ public class TaskManager extends AppCompatActivity {
             String zone_number = getCurrentZoneNumber ();
 
             // Get zone info by name
-            cursorTask = getZoneByNumber(zone_number);
+            cursor = getZoneByNumber(zone_number);
 
-            if (cursorTask.moveToFirst()) {
+            if (cursor.moveToFirst()) {
 
                 String number = cursor.getString(cursor.getColumnIndex(DBHelper.ZONE_NUMBER));
                 String name = cursor.getString(cursor.getColumnIndex(DBHelper.ZONE_NAME));
