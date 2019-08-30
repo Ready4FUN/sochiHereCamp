@@ -80,6 +80,8 @@ import java.util.concurrent.TimeUnit;
 public class Camera2BasicFragment extends Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
+
+
     /**
      * Conversion from screen rotation to JPEG orientation.
      */

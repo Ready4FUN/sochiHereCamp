@@ -10,7 +10,11 @@ import android.widget.Toast;
 
 public class cameraActivity extends AppCompatActivity {
 
+    TaskManager taskManager;
+
     private String lastTaskIndexCamera;
+
+    private boolean trueAr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,17 +27,27 @@ public class cameraActivity extends AppCompatActivity {
         }
 
         lastTaskIndexCamera = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
+        trueAr = (boolean)getIntent().getSerializableExtra("TRUE_AR");
     }
 
 
     public void doneSelfie(View target) {
+        taskManager = new TaskManager(this, null);
+
         //Да, мы таскаем lastTaskIndex по активностям... что бы не было ошибок ;3
         //Ахуенно, не правда ли?
-        Intent intent = new Intent(this, arActivity.class);
+        Intent intent;
+
+        if(trueAr){
+            intent = new Intent(this, arActivity.class);
+        } else {
+            intent = new Intent(this, unsuportedArCore.class);
+        }
+
         intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndexCamera);
         intent.putExtra("TASK_DONE", true);
 
-        //TODO вызвать функцию выполненого задания
+        taskManager.completeCurrentTask();
         this.startActivity(intent);
     }
 

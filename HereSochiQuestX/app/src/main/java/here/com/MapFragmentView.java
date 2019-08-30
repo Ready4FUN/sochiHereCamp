@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.ar.core.ArCoreApk;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.GeoPolygon;
 import com.here.android.mpa.common.GeoPosition;
@@ -29,6 +31,9 @@ import java.lang.ref.WeakReference;
 
 
 public class MapFragmentView extends AppCompatActivity {
+
+    //change intent activity for unsuported AR core devices
+    private  boolean supportArCore = false;
 
     public AppCompatActivity m_activity;
 
@@ -132,6 +137,7 @@ public class MapFragmentView extends AppCompatActivity {
 
         initDatabase();
         initMapFragment ();
+        checkArCore();
     }
 
     private SupportMapFragment getMapFragment () {
@@ -282,7 +288,15 @@ public class MapFragmentView extends AppCompatActivity {
             //m_activity.startActivity(intent);
 
             String lastTaskIndex =  taskManager.getLastTaskIndex();
-            Intent intent = new Intent(m_activity, arActivity.class);
+
+            Intent intent;
+
+            if(supportArCore){
+                intent = new Intent(m_activity, arActivity.class);
+            } else {
+                intent = new Intent(m_activity, unsuportedArCore.class);
+            }
+
             intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
             intent.putExtra("TASK_DONE", false);
             m_activity.startActivity(intent);
@@ -316,6 +330,26 @@ public class MapFragmentView extends AppCompatActivity {
             ed.commit();
 
             openDialogWindow();
+        }
+    }
+
+    void checkArCore() {
+        ArCoreApk.Availability availability = ArCoreApk.getInstance().checkAvailability(m_activity);
+        if (availability.isTransient()) {
+            // Re-query at 5Hz while compatibility is checked in the background.
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkArCore();
+                }
+            }, 200);
+        }
+        if (availability.isSupported()) {
+            //TODO изменить на true после отладки
+            supportArCore = false;
+            // indicator on the button.
+        } else { // Unsupported or unknown.
+            supportArCore = false;
         }
     }
 

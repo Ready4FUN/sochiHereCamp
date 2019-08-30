@@ -23,6 +23,7 @@ import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 
+import java.util.HashMap;
 
 
 public class arActivity extends AppCompatActivity {
@@ -33,6 +34,8 @@ public class arActivity extends AppCompatActivity {
   private ArFragment arFragment;
   private AnchorNode anchorNode;
   private int DefRenderable;
+
+  TaskManager taskManager;
 
 
   private String lastTaskIndex;
@@ -59,9 +62,17 @@ public class arActivity extends AppCompatActivity {
 
     Button arButton = (Button)findViewById(R.id.morphArButton);
 
+    taskManager = new TaskManager(this, null);
+
+    //оно не работатет -_-
+    //HashMap<String, String> questData = taskManager.getCurrentTaskDesctiption();
+    //questData.get("language")
+
     if(taskDone){
+
+
       //TODO вставить получение задания
-      arText.setText("Зацени новое задание");
+      arText.setText("ЗАДАНИЕ МНЕ ЗАПИЛИ");
       arButton.setText(getResources().getString(R.string.backToMap));
     } else {
       arText.setText(getResources().getString(R.string.done));
@@ -215,6 +226,7 @@ public class arActivity extends AppCompatActivity {
     } else {
       Intent intent = new Intent(this, cameraActivity.class);
       intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
+      intent.putExtra("TRUE_AR", true);
       this.startActivity(intent);
     }
 

@@ -3,6 +3,7 @@ package here.com;
 import android.graphics.PointF;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,9 +41,14 @@ public class MapOnGestureListener implements MapGesture.OnGestureListener {
             GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
 
             if(checkPolygon.contains(point)){
-                taskManager.openCongratulationWindow();
-                taskManager.completeCurrentTask();
+                //TODO активация кнопки телепорта
+                //taskManager.openCongratulationWindow();
+                //taskManager.completeCurrentTask();
                 taskManager.updateMap();
+
+                Toast toast = Toast.makeText(m_activity,
+                        "в зоне", Toast.LENGTH_SHORT);
+                toast.show();
             }
 
         }catch(NullPointerException err){

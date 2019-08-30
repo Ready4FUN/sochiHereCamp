@@ -40,7 +40,11 @@
   },
   samplers: [
     {
+<<<<<<< HEAD
       file: 'sampledata/head\\showmewhatyougot.jpg',
+=======
+      file: 'sampledata/head/showmewhatyougot.jpg',
+>>>>>>> 6da7d0014718189be65e54438c87792f096b65bc
       name: 'showmewhatyougot',
       pipeline_name: 'showmewhatyougot.jpg',
     },
