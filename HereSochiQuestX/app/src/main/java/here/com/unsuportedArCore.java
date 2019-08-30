@@ -81,22 +81,22 @@ public class unsuportedArCore extends AppCompatActivity {
 
         switch (lastTaskIndex){
             case ("1"):
-                notAR.setImageResource(R.drawable.annotation);
+                notAR.setImageResource(R.drawable.misiks);
                 break;
             case ("2"):
-                notAR.setImageResource(R.drawable.annotation);
+                notAR.setImageResource(R.drawable.sheptun);
                 break;
             case ("3"):
-                notAR.setImageResource(R.drawable.annotation);
+                notAR.setImageResource(R.drawable.head);
                 break;
             case ("4"):
-                notAR.setImageResource(R.drawable.annotation);
+                notAR.setImageResource(R.drawable.birdman);
                 break;
             case ("5"):
-                notAR.setImageResource(R.drawable.annotation);
+                notAR.setImageResource(R.drawable.axis);
                 break;
             default:
-                notAR.setImageResource(R.drawable.annotation);
+                notAR.setImageResource(R.drawable.jopasranchik);
                 break;
         }
 

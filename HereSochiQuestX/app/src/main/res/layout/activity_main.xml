@@ -19,55 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/zoomInBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/zoomOutBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_add_white_24dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/zoomOutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/geolocationBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="@+id/mapfragment"
-        app:srcCompat="@drawable/ic_remove_white_24dp" />
-
-    <ImageView
-        android:id="@+id/fab"
-        android:layout_width="82dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mapfragment"
-        app:layout_constraintVertical_bias="0.975"
-        app:srcCompat="@drawable/teleport_transperent" />
-
     <Button
         android:id="@+id/task_info"
         android:layout_width="110dp"
@@ -83,6 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.033" />
+
 
     <Button
         android:id="@+id/clearDB"
@@ -101,6 +53,54 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011" />
 
+    <ImageView
+        android:id="@+id/fab"
+        android:layout_width="82dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mapfragment"
+        app:layout_constraintVertical_bias="0.975"
+        app:srcCompat="@drawable/teleport_transperent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/zoomOutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/geolocationBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="@+id/mapfragment"
+        app:srcCompat="@drawable/ic_remove_white_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/zoomInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/zoomOutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/geolocationBtn"
         android:layout_width="wrap_content"
@@ -109,6 +109,7 @@
         android:layout_marginTop="340dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:focusable="true"
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,8 +117,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/mapfragment"
         app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/ic_near_me_white_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_near_me_white_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="80dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/zoomInBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_info"
+        app:layout_constraintVertical_bias="0.964"
+        app:srcCompat="@drawable/ic_info_outline_24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

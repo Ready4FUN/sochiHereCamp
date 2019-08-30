@@ -44,9 +44,12 @@ public class MapFragmentView extends AppCompatActivity {
     private FloatingActionButton geolocationBtn;
     private FloatingActionButton zoomInBtn;
     private FloatingActionButton zoomOutBtn;
+    private FloatingActionButton infoBtn;
+
     private Button taskInfoBtn;
     private Button clearDBBtn;
     private ImageView teleportBtn;
+
 
 
     private PositioningManager posManager = null;
@@ -208,6 +211,7 @@ public class MapFragmentView extends AppCompatActivity {
         taskInfoBtn = m_activity.findViewById(R.id.task_info);
         clearDBBtn = m_activity.findViewById(R.id.clearDB);
         teleportBtn = m_activity.findViewById(R.id.fab);
+        infoBtn = m_activity.findViewById(R.id.info);
 //        confirmBtn = m_activity.findViewById(R.id.confirmBtn);
 
         taskInfoBtn.setOnClickListener(v -> {
@@ -298,6 +302,19 @@ public class MapFragmentView extends AppCompatActivity {
             intent.putExtra("CURRENT_ZONE_NUMBER", lastTaskIndex);
             intent.putExtra("TASK_DONE", false);
             m_activity.startActivity(intent);
+        });
+
+
+        infoBtn.setOnClickListener(v -> {
+            LayoutInflater inflater = m_activity.getLayoutInflater();
+            View view = inflater.inflate(R.layout.dialog_start_task, null);
+
+            new MaterialAlertDialogBuilder(m_activity)
+                    .setCancelable(false)
+                    .setView(view)
+                    .setPositiveButton("ОК", (dialogInterface, i) -> {
+                    })
+                    .show();
         });
 
     }
