@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,17 +63,22 @@ public class arActivity extends AppCompatActivity {
 
     Button arButton = (Button)findViewById(R.id.morphArButton);
 
+    ImageView arImage= (ImageView)findViewById(R.id.questImage);
+
     taskManager = new TaskManager(this, null);
 
-    //оно не работатет -_-
-    //HashMap<String, String> questData = taskManager.getCurrentTaskDesctiption();
-    //questData.get("language")
+    //оно  работает
+    HashMap<String, String> questData = taskManager.getCurrentTaskDesctiption();
+
+    String questLanguage = questData.get("language");
+    String questImg = questData.get("img_code");
 
     if(taskDone){
 
 
       //TODO вставить получение задания
-      arText.setText("ЗАДАНИЕ МНЕ ЗАПИЛИ");
+      arText.setText(questLanguage);
+      arImage.setImageResource(getResources().getIdentifier("drawable/" + questImg, null, getPackageName()));
       arButton.setText(getResources().getString(R.string.backToMap));
     } else {
       arText.setText(getResources().getString(R.string.done));

@@ -343,8 +343,7 @@ public class MapFragmentView extends AppCompatActivity {
             }, 200);
         }
         if (availability.isSupported()) {
-            //TODO изменить на true после отладки
-            supportArCore = false;
+            supportArCore = true;
             // indicator on the button.
         } else { // Unsupported or unknown.
             supportArCore = false;

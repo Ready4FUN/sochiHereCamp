@@ -63,16 +63,16 @@
     file: 'sampledata/pickleRick/pickle_rick.obj',
     name: 'pickle_rick',
     recenter: 'root',
-    scale: 0.0080920000000000002,
+    scale: 0.003,
   },
   samplers: [
     {
-      file: 'sampledata/pickleRick\\M_04___Default.jpg',
+      file: 'sampledata/pickleRick/M_04___Default.jpg',
       name: 'M_04___Default',
       pipeline_name: 'M_04___Default.jpg',
     },
     {
-      file: 'sampledata/pickleRick\\eye.jpg',
+      file: 'sampledata/pickleRick/eye.jpg',
       name: 'eye',
       pipeline_name: 'eye.jpg',
     },
