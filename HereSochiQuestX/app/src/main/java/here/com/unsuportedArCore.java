@@ -60,7 +60,7 @@ public class unsuportedArCore extends AppCompatActivity {
 
         HashMap<String, String> questData = taskManager.getCurrentTaskDesctiption();
 
-        String questLanguage = questData.get("language");
+        String questLanguage = getResources().getString(R.string.newTask) + questData.get("language");
         String questImg = questData.get("img_code");
 
         if(taskDone){
