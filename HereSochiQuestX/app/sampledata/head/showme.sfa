@@ -40,7 +40,7 @@
   },
   samplers: [
     {
-      file: 'sampledata/head\\showmewhatyougot.jpg',
+      file: 'sampledata/head/showmewhatyougot.jpg',
       name: 'showmewhatyougot',
       pipeline_name: 'showmewhatyougot.jpg',
     },
