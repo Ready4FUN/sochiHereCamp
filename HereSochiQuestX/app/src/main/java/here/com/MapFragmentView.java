@@ -18,6 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.ar.core.ArCoreApk;
 import com.here.android.mpa.common.GeoCoordinate;
+import com.here.android.mpa.common.GeoPolygon;
 import com.here.android.mpa.common.GeoPosition;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.common.PositioningManager;
@@ -83,13 +84,22 @@ public class MapFragmentView extends AppCompatActivity {
             }
 
             try{
-//                taskManager.updateMap ();
-//                GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
-//                GeoCoordinate currentPosition = new GeoCoordinate(position.getCoordinate());
 
-//                if(checkPolygon.contains(currentPosition)){
-//                    teleportBtn.setVisibility(View.VISIBLE);
-//                }
+                GeoCoordinate currentPosition = new GeoCoordinate(position.getCoordinate());
+
+                GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
+
+                if(checkPolygon.contains(currentPosition)){
+                    teleportBtn = m_activity.findViewById(R.id.fab);
+                    teleportBtn.setVisibility(View.VISIBLE);
+
+                    taskManager.updateMap();
+
+                    Toast toast = Toast.makeText(m_activity,
+                            "в зоне", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
 
             }catch(NullPointerException err){
                 System.out.print(err);
@@ -139,6 +149,8 @@ public class MapFragmentView extends AppCompatActivity {
         initDatabase();
         initMapFragment ();
         checkArCore();
+
+
     }
 
     private SupportMapFragment getMapFragment () {
@@ -191,7 +203,7 @@ public class MapFragmentView extends AppCompatActivity {
                     taskManager.updateMap ();
 
                     // Handle map events
-                    m_mapFragment.getMapGesture().addOnGestureListener(new MapOnGestureListener(m_activity, m_map),0, false);
+//                    m_mapFragment.getMapGesture().addOnGestureListener(new MapOnGestureListener(m_activity, m_map),0, false);
 
                     checkFirstAttendance ();
                     initControlBtns();

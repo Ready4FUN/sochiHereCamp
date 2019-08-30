@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -13,11 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.ar.core.ArCoreApk;
-
-import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         teleportBtn = findViewById(R.id.fab);
         teleportBtn.setVisibility(View.INVISIBLE);
+
 
         if (hasPermissions(this, RUNTIME_PERMISSIONS)) {
             setupMapFragmentView();
@@ -96,9 +91,4 @@ public class MainActivity extends AppCompatActivity {
     private void setupMapFragmentView() {
         MapFragmentView m_mapFragmentView = new MapFragmentView(this);
     }
-
-
-
-
-
 }

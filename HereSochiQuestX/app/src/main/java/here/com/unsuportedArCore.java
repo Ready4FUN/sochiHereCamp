@@ -38,10 +38,6 @@ public class unsuportedArCore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unsuported_ar_core);
 
-
-
-
-
         //по хорошему определить отдельную функцию и вызвать из разных мест...
         //но я просто скопирую тот же самый код. ИБО БЛЯТЬ МОГУ
         lastTaskIndex = (String)getIntent().getSerializableExtra("CURRENT_ZONE_NUMBER");
@@ -70,6 +66,7 @@ public class unsuportedArCore extends AppCompatActivity {
             arText.setText(questLanguage);
             arImage.setImageResource(getResources().getIdentifier("drawable/" + questImg, null, getPackageName()));
             arButton.setText(getResources().getString(R.string.backToMap));
+
         } else {
             arText.setText(getResources().getString(R.string.done));
             arButton.setText(getResources().getString(R.string.stringSelfieButton));
@@ -102,10 +99,6 @@ public class unsuportedArCore extends AppCompatActivity {
 
 
     }
-
-
-
-
 
     //как ты поняд, это просто ctrl+c ctrl+v
     public void goSelfie(View target) {

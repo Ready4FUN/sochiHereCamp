@@ -69,19 +69,13 @@ public class TaskManager extends AppCompatActivity {
         LayoutInflater inflater;
         View v;
 
-        if(!questIsFinished()){
+        if(questIsFinished()){
             inflater = m_activity.getLayoutInflater();
             v = inflater.inflate(R.layout.dialog_congratulation, null);
 
             new MaterialAlertDialogBuilder(m_activity)
                     .setCancelable(false)
                     .setView(v)
-                    .setPositiveButton("Ok", (dialogInterface, i) -> {
-                    })
-                    .show();
-        } else {
-            new MaterialAlertDialogBuilder(m_activity)
-                    .setCancelable(false)
                     .setPositiveButton("Ok", (dialogInterface, i) -> {
                     })
                     .show();

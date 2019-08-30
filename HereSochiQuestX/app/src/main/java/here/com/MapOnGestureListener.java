@@ -43,9 +43,6 @@ public class MapOnGestureListener implements MapGesture.OnGestureListener {
             GeoPolygon checkPolygon = taskManager.getCurrentGeozone();
 
             if(checkPolygon.contains(point)){
-                //TODO активация кнопки телепорта
-                //taskManager.openCongratulationWindow();
-                //taskManager.completeCurrentTask();
                 teleportBtn = m_activity.findViewById(R.id.fab);
                 teleportBtn.setVisibility(View.VISIBLE);
 
