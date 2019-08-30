@@ -47,7 +47,6 @@ public class MapFragmentView extends AppCompatActivity {
     private Button taskInfoBtn;
     private Button clearDBBtn;
     private ImageView teleportBtn;
-//    private Button confirmBtn;
 
 
     private PositioningManager posManager = null;
@@ -312,7 +311,7 @@ public class MapFragmentView extends AppCompatActivity {
                 .setCancelable(false)
                 .setView(v)
                 .setPositiveButton("Начать", (dialogInterface, i) -> {
-//                    taskManager.openCurrentTaskDescription();
+                    taskManager.openCurrentTaskDescription();
                 })
                 .show();
 
